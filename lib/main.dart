@@ -78,7 +78,22 @@ class _MyAppState extends State<MyApp> {
                 itemCount: _blogs.length,
                 itemBuilder: (BuildContext context, int index) {
                   final blog = _blogs[index];
-                  // final highlight = blog['highlight'].join(' ... ');
+                  final highlightedText = blog['highlight'] as List<dynamic>;
+                  final highlightedSpans =
+                      highlightedText.map<InlineSpan>((highlight) {
+                    if (highlight is String) {
+                      return TextSpan(
+                        text: highlight.replaceAll("\n", ""),
+                        style: const TextStyle(
+                          color: Colors.black,
+                        ),
+                      );
+                    } else {
+                      return const TextSpan(
+                        text: '',
+                      );
+                    }
+                  }).toList();
                   return ListTile(
                     title: Text(
                       blog['title'],
@@ -88,9 +103,30 @@ class _MyAppState extends State<MyApp> {
                         color: Colors.blueAccent,
                       ),
                     ),
-                    subtitle: Text(
-                      blog['member'] + ' - ' + blog['created'],
-                      style: const TextStyle(fontSize: 10),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          blog['member'] + ' - ' + blog['created'],
+                          style: const TextStyle(
+                            fontSize: 10,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        SizedBox(
+                          height: 80,
+                          child: RichText(
+                            text: TextSpan(
+                              children: highlightedSpans,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 5,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        )
+                      ],
                     ),
                     onTap: () => Navigator.push(
                       context,
