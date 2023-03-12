@@ -79,21 +79,38 @@ class _MyAppState extends State<MyApp> {
                 itemBuilder: (BuildContext context, int index) {
                   final blog = _blogs[index];
                   final highlightedText = blog['highlight'] as List<dynamic>;
-                  final highlightedSpans =
-                      highlightedText.map<InlineSpan>((highlight) {
-                    if (highlight is String) {
-                      return TextSpan(
-                        text: highlight.replaceAll("\n", ""),
-                        style: const TextStyle(
-                          color: Colors.black,
-                        ),
-                      );
-                    } else {
-                      return const TextSpan(
-                        text: '',
-                      );
+                  TextSpan getTextSpans(String text) {
+                    final List<String> parts =
+                        text.split(RegExp(r'<em>|<\/em>'));
+                    final List<RegExpMatch> matches =
+                        RegExp(r'<em>(.*?)<\/em>').allMatches(text).toList();
+                    final List<TextSpan> spans = [];
+                    for (final String part in parts) {
+                      if (part == matches[0].group(1)) {
+                        spans.add(
+                          TextSpan(
+                            text: part,
+                            style: const TextStyle(
+                              color: Colors.black,
+                              backgroundColor: Colors.yellowAccent,
+                            ),
+                          ),
+                        );
+                      } else {
+                        spans.add(
+                          TextSpan(
+                            text: part,
+                            style: const TextStyle(
+                              color: Colors.black,
+                            ),
+                          ),
+                        );
+                      }
                     }
-                  }).toList();
+
+                    return TextSpan(children: spans);
+                  }
+
                   return ListTile(
                     title: Text(
                       blog['title'],
@@ -116,9 +133,9 @@ class _MyAppState extends State<MyApp> {
                         SizedBox(
                           height: 80,
                           child: RichText(
-                            text: TextSpan(
-                              children: highlightedSpans,
-                            ),
+                            text: getTextSpans(highlightedText[0]
+                                .toString()
+                                .replaceAll("\n", "")),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 5,
                           ),
