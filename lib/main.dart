@@ -91,8 +91,8 @@ class _MyAppState extends State<MyApp> {
                           TextSpan(
                             text: part,
                             style: const TextStyle(
-                                fontSize: 12,
-                                color: Color(0xFF888888),
+                                fontSize: 14,
+                                color: Color(0xFF777777),
                                 fontWeight: FontWeight.bold),
                           ),
                         );
@@ -101,7 +101,7 @@ class _MyAppState extends State<MyApp> {
                           TextSpan(
                             text: part,
                             style: const TextStyle(
-                              fontSize: 12,
+                              fontSize: 14,
                               color: Color(0xFF888888),
                             ),
                           ),
@@ -116,9 +116,9 @@ class _MyAppState extends State<MyApp> {
                     title: Text(
                       blog['title'],
                       overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
+                      maxLines: 2,
                       style: const TextStyle(
-                        fontSize: 18,
+                        fontSize: 22,
                         color: Color.fromARGB(255, 22, 22, 168),
                       ),
                     ),
@@ -133,18 +133,16 @@ class _MyAppState extends State<MyApp> {
                         ),
                         const SizedBox(height: 4),
                         SizedBox(
-                          height: 75,
                           child: RichText(
-                            text: getTextSpans(highlightedText
-                                .join("...")
-                                .toString()
-                                .replaceAll("\n", "")),
+                            text: getTextSpans(
+                                ("${highlightedText.join("...")}...")
+                                    .replaceAll("\n", "")),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 5,
                           ),
                         ),
                         const SizedBox(
-                          height: 4,
+                          height: 10,
                         )
                       ],
                     ),
