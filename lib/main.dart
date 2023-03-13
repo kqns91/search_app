@@ -91,9 +91,9 @@ class _MyAppState extends State<MyApp> {
                           TextSpan(
                             text: part,
                             style: const TextStyle(
-                              color: Colors.black,
-                              backgroundColor: Colors.yellowAccent,
-                            ),
+                                fontSize: 12,
+                                color: Color(0xFF888888),
+                                fontWeight: FontWeight.bold),
                           ),
                         );
                       } else {
@@ -101,7 +101,8 @@ class _MyAppState extends State<MyApp> {
                           TextSpan(
                             text: part,
                             style: const TextStyle(
-                              color: Colors.black,
+                              fontSize: 12,
+                              color: Color(0xFF888888),
                             ),
                           ),
                         );
@@ -117,7 +118,8 @@ class _MyAppState extends State<MyApp> {
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                       style: const TextStyle(
-                        color: Colors.blueAccent,
+                        fontSize: 18,
+                        color: Color.fromARGB(255, 22, 22, 168),
                       ),
                     ),
                     subtitle: Column(
@@ -131,9 +133,10 @@ class _MyAppState extends State<MyApp> {
                         ),
                         const SizedBox(height: 4),
                         SizedBox(
-                          height: 80,
+                          height: 75,
                           child: RichText(
-                            text: getTextSpans(highlightedText[0]
+                            text: getTextSpans(highlightedText
+                                .join("...")
                                 .toString()
                                 .replaceAll("\n", "")),
                             overflow: TextOverflow.ellipsis,
