@@ -51,7 +51,7 @@ class _MyAppState extends State<MyApp> {
       title: 'Blog Searcher',
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Blog Searcher'),
+          title: const Text('のぎさーち'),
           backgroundColor: const Color(0xFF812990),
           elevation: 0,
         ),
