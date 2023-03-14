@@ -125,6 +125,7 @@ class _MyAppState extends State<MyApp> {
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                       style: const TextStyle(
+                        fontWeight: FontWeight.w600,
                         fontSize: 22,
                         color: Color.fromARGB(255, 22, 22, 168),
                       ),
