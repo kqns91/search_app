@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -86,17 +88,23 @@ class _MyAppState extends State<MyApp> {
                         RegExp(r'<em>(.*?)<\/em>').allMatches(text).toList();
                     final List<TextSpan> spans = [];
                     for (final String part in parts) {
-                      if (part == matches[0].group(1)) {
-                        spans.add(
-                          TextSpan(
-                            text: part,
-                            style: const TextStyle(
-                                fontSize: 14,
-                                color: Color(0xFF777777),
-                                fontWeight: FontWeight.bold),
-                          ),
-                        );
-                      } else {
+                      bool appended = false;
+                      for (final RegExpMatch match in matches) {
+                        if (part == match.group(1)) {
+                          spans.add(
+                            TextSpan(
+                              text: part,
+                              style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Color(0xFF777777),
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          );
+                          appended = true;
+                          break;
+                        }
+                      }
+                      if (!appended) {
                         spans.add(
                           TextSpan(
                             text: part,
@@ -108,7 +116,6 @@ class _MyAppState extends State<MyApp> {
                         );
                       }
                     }
-
                     return TextSpan(children: spans);
                   }
 
