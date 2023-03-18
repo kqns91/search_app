@@ -21,11 +21,11 @@ class _MyAppState extends State<MyApp> {
       return;
     }
     final response = await http.get(Uri.parse(
-        'https://kqns91.mydns.jp/api/documents/search?from=0&size=30&query=$query'));
+        'https://kqns91.mydns.jp/api/blogs/search?from=0&size=30&query=$query'));
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       setState(() {
-        _blogs = data['blogs'];
+        _blogs = data['result'];
       });
     } else {
       throw Exception('Failed to load data');
@@ -96,7 +96,7 @@ class _MyAppState extends State<MyApp> {
                               text: part,
                               style: const TextStyle(
                                   fontSize: 14,
-                                  color: Color(0xFF777777),
+                                  color: Color(0xFF666666),
                                   fontWeight: FontWeight.bold),
                             ),
                           );
@@ -134,7 +134,7 @@ class _MyAppState extends State<MyApp> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          blog['member'] + ' - ' + blog['created'],
+                          blog['member'] + ' - ' + blog['date'],
                           style: const TextStyle(
                             fontSize: 10,
                           ),
@@ -158,7 +158,7 @@ class _MyAppState extends State<MyApp> {
                       context,
                       MaterialPageRoute(
                         builder: (_) => WebView(
-                          url: blog['url'],
+                          url: blog['link'],
                           title: blog['title'],
                         ),
                       ),
