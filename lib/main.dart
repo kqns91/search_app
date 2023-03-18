@@ -96,7 +96,7 @@ class _MyAppState extends State<MyApp> {
                               text: part,
                               style: const TextStyle(
                                   fontSize: 14,
-                                  color: Color(0xFF777777),
+                                  color: Color(0xFF666666),
                                   fontWeight: FontWeight.bold),
                             ),
                           );
