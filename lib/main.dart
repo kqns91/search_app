@@ -134,7 +134,7 @@ class _MyAppState extends State<MyApp> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          blog['member'] + ' - ' + blog['created'],
+                          blog['member'] + ' - ' + blog['date'],
                           style: const TextStyle(
                             fontSize: 10,
                           ),
@@ -158,7 +158,7 @@ class _MyAppState extends State<MyApp> {
                       context,
                       MaterialPageRoute(
                         builder: (_) => WebView(
-                          url: blog['url'],
+                          url: blog['link'],
                           title: blog['title'],
                         ),
                       ),
