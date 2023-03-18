@@ -21,11 +21,11 @@ class _MyAppState extends State<MyApp> {
       return;
     }
     final response = await http.get(Uri.parse(
-        'https://kqns91.mydns.jp/api/documents/search?from=0&size=30&query=$query'));
+        'https://kqns91.mydns.jp/api/blogs/search?from=0&size=30&query=$query'));
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       setState(() {
-        _blogs = data['blogs'];
+        _blogs = data['result'];
       });
     } else {
       throw Exception('Failed to load data');
