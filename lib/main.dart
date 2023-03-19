@@ -71,6 +71,12 @@ class _MyAppState extends State<MyApp> {
                   ),
                 ),
                 onSubmitted: (value) {
+                  if (value == "") {
+                    setState(() {
+                      _blogs = [];
+                    });
+                    return;
+                  }
                   _fetchData(value);
                   _scrollController.animateTo(
                     0,
