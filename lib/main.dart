@@ -175,7 +175,8 @@ class _MyAppState extends State<MyApp> {
                           child: RichText(
                             text: getTextSpans(
                                 ("${highlightedText.join("...")}...")
-                                    .replaceAll("\n", "")),
+                                    .replaceAll("\n", "")
+                                    .replaceAll(RegExp(r'&\w+;'), "")),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 5,
                           ),
