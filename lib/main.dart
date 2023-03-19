@@ -13,21 +13,28 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List _blogs = [];
   final TextEditingController _controller = TextEditingController();
   final ScrollController _scrollController = ScrollController();
 
-  Future<void> _fetchData(String query) async {
-    if (query.isEmpty) {
-      return;
-    }
+  String query = "";
+  int offset = 0;
+  final int limit = 30;
+
+  List _blogs = [];
+
+  Future<void> _fetchData() async {
     final response = await http.get(Uri.parse(
-        'https://kqns91.mydns.jp/api/blogs/search?from=0&size=30&query=$query'));
+        'https://kqns91.mydns.jp/api/blogs/search?from=$offset&size=$limit&query=$query'));
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       setState(() {
-        _blogs = data['result'];
+        if (offset == 0) {
+          _blogs = data['result'];
+        } else {
+          _blogs.addAll(data['result']);
+        }
       });
+      offset = offset + limit;
     } else {
       throw Exception('Failed to load data');
     }
@@ -36,7 +43,15 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    _fetchData('');
+    _scrollController.addListener(_onScrollEnd);
+  }
+
+  void _onScrollEnd() {
+    if (_scrollController.position.maxScrollExtent -
+            _scrollController.position.pixels <
+        200.0) {
+      _fetchData();
+    }
   }
 
   @override
@@ -71,13 +86,15 @@ class _MyAppState extends State<MyApp> {
                   ),
                 ),
                 onSubmitted: (value) {
-                  if (value == "") {
+                  query = value;
+                  offset = 0;
+                  if (query == "") {
                     setState(() {
                       _blogs = [];
                     });
                     return;
                   }
-                  _fetchData(value);
+                  _fetchData();
                   _scrollController.animateTo(
                     0,
                     duration: const Duration(
