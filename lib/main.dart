@@ -64,8 +64,7 @@ class _MyAppState extends State<MyApp> {
                 controller: _controller,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Search',
-                  labelStyle: TextStyle(color: Color(0xFF812990)),
+                  hintText: "検索",
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     borderSide: BorderSide(width: 1, color: Color(0xFF812990)),
