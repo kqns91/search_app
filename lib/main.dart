@@ -15,6 +15,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   List _blogs = [];
   final TextEditingController _controller = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
 
   Future<void> _fetchData(String query) async {
     if (query.isEmpty) {
@@ -72,11 +73,19 @@ class _MyAppState extends State<MyApp> {
                 ),
                 onSubmitted: (value) {
                   _fetchData(value);
+                  _scrollController.animateTo(
+                    0,
+                    duration: const Duration(
+                      milliseconds: 300,
+                    ),
+                    curve: Curves.easeInOut,
+                  );
                 },
               ),
             ),
             Expanded(
               child: ListView.builder(
+                controller: _scrollController,
                 itemCount: _blogs.length,
                 itemBuilder: (BuildContext context, int index) {
                   final blog = _blogs[index];
