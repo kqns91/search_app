@@ -150,6 +150,20 @@ class _MyAppState extends State<MyApp> {
                     return TextSpan(children: spans);
                   }
 
+                  Image getImage(List<dynamic>? images) {
+                    if (images == null || images.isEmpty) {
+                      return Image.network(
+                        "https://www.nogizaka46.com/files/46/assets/img/blog/none.png",
+                        fit: BoxFit.fitWidth,
+                      );
+                    }
+
+                    return Image.network(
+                      images[0],
+                      fit: BoxFit.fitWidth,
+                    );
+                  }
+
                   return ListTile(
                     title: Text(
                       blog['title'],
@@ -171,6 +185,8 @@ class _MyAppState extends State<MyApp> {
                           ),
                         ),
                         const SizedBox(height: 4),
+                        getImage(blog["images"]),
+                        const SizedBox(height: 10),
                         SizedBox(
                           child: RichText(
                             text: getTextSpans(
@@ -182,7 +198,7 @@ class _MyAppState extends State<MyApp> {
                           ),
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 20,
                         )
                       ],
                     ),
@@ -210,7 +226,7 @@ class WebView extends StatelessWidget {
   final String url;
   final String title;
 
-  const WebView({required this.url, required this.title});
+  const WebView({super.key, required this.url, required this.title});
 
   @override
   Widget build(BuildContext context) {
